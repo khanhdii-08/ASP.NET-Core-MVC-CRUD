@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebApplicationCRUD.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<h1>Students</h1>
+
+<partial name="_pager" model="@pager"/>
+
+<p>
+    <a asp-action="Create" class="btn btn-sm btn-success">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <div class="btn-group">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary ms-lg-1">Details</a> 
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger ms-lg-1">Delete</a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
